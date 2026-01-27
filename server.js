@@ -6,15 +6,16 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const pastes = {};
-
-// ✅ Home route
+// Home route
 app.get("/", (req, res) => {
   res.send("Pastebin Lite API Running 🚀");
 });
 
-// ✅ Create paste
+const pastes = {};
+
+// Create paste
 app.post("/pastes", (req, res) => {
   const { text } = req.body;
 
@@ -27,11 +28,11 @@ app.post("/pastes", (req, res) => {
 
   res.json({
     id,
-    url: `${req.protocol}://${req.get("host")}/pastes/${id}`
+    url: `https://pastebin-lite-txi.onrender.com/pastes/${id}`
   });
 });
 
-// ✅ Get paste
+// View paste
 app.get("/pastes/:id", (req, res) => {
   const paste = pastes[req.params.id];
 
