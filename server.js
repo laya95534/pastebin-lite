@@ -5,14 +5,16 @@ const { nanoid } = require("nanoid");
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+/* HOME ROUTE */
 app.get("/", (req, res) => {
   res.send("Pastebin Lite API Running 🚀");
 });
 
-
+/* STORAGE */
 const pastes = {};
 
-
+/* CREATE PASTE */
 app.post("/pastes", (req, res) => {
   const { text } = req.body;
 
@@ -23,9 +25,10 @@ app.post("/pastes", (req, res) => {
   const id = nanoid(6);
   pastes[id] = text;
 
-  res.json({ id, url: `http://localhost:3000/pastes/${id}` });
+  res.json({ id, url: `/pastes/${id}` });
 });
 
+/* GET PASTE */
 app.get("/pastes/:id", (req, res) => {
   const paste = pastes[req.params.id];
 
@@ -35,9 +38,9 @@ app.get("/pastes/:id", (req, res) => {
 
   res.send(paste);
 });
-const PORT = process.env.PORT || 3000;
 
+/* START SERVER */
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
 });
-
