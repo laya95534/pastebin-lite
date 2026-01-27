@@ -3,7 +3,7 @@ const cors = require("cors");
 const { nanoid } = require("nanoid");
 
 const app = express();
-
+app.set("trust proxy", 1);
 app.use(cors());
 app.use(express.json({ type: '*/*' }));
 app.use(express.urlencoded({ extended: true }));
