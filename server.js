@@ -5,7 +5,7 @@ const { nanoid } = require("nanoid");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ type: '*/*' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Home route
@@ -47,4 +47,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
 });
-// redeploy
