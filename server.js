@@ -12,9 +12,6 @@ app.get("/", (req, res) => {
 
 const pastes = {};
 
-app.get("/", (req, res) => {
-  res.send("Pastebin Lite API is running 🚀");
-});
 
 app.post("/pastes", (req, res) => {
   const { text } = req.body;
