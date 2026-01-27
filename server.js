@@ -5,6 +5,10 @@ const { nanoid } = require("nanoid");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("Pastebin Lite API Running 🚀");
+});
+
 
 const pastes = {};
 
