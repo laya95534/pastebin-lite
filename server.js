@@ -3,19 +3,16 @@ const cors = require("cors");
 const { nanoid } = require("nanoid");
 
 const app = express();
-app.set("trust proxy", 1);
-app.use(cors());
-app.use(express.json({ type: '*/*' }));
-app.use(express.urlencoded({ extended: true }));
 
-// Home route
+app.use(cors());
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Pastebin Lite API Running 🚀");
 });
 
 const pastes = {};
 
-// Create paste
 app.post("/pastes", (req, res) => {
   const { text } = req.body;
 
@@ -26,13 +23,9 @@ app.post("/pastes", (req, res) => {
   const id = nanoid(6);
   pastes[id] = text;
 
-  res.json({
-    id,
-    url: `https://pastebin-lite-txi.onrender.com/pastes/${id}`
-  });
+  res.json({ id, url: `/pastes/${id}` });
 });
 
-// View paste
 app.get("/pastes/:id", (req, res) => {
   const paste = pastes[req.params.id];
 
@@ -43,5 +36,7 @@ app.get("/pastes/:id", (req, res) => {
   res.send(paste);
 });
 
-module.exports = app;
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
+});
